@@ -10,6 +10,28 @@
     body {
         background-color: #000000;
         color: #ffffff;
+        perspective: 1000px;
+        overflow-x: hidden;
+    }
+
+    /* Adding modern gradient background with animation */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #000000, #1a1a1a);
+        opacity: 0.7;
+        z-index: -1;
+        animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
     .section-title {
@@ -65,8 +87,18 @@
         display: flex;
         gap: 2rem;
         border-radius: 25px;
-        border: 1px solid white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
         padding: 10px 20px;
+        transform-style: preserve-3d;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-list:hover {
+        transform: translateZ(20px);
+        border-color: rgba(0, 123, 255, 0.5);
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
     }
 
     .nav-list ul {
@@ -208,12 +240,20 @@
         border: 1px solid #222;
         border-radius: 15px;
         padding: 25px;
-        transition: 0.3s;
+        transition: all 0.5s ease;
+        transform-style: preserve-3d;
+        position: relative;
     }
 
     .card:hover {
-        box-shadow: 0px 0px 15px #007bffa2;
-        transform: translateY(-5px);
+        box-shadow: 0px 0px 30px #007bffa2;
+        transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+        animation: cardFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat {
+        0%, 100% { transform: translateY(-10px) rotateX(5deg) rotateY(5deg); }
+        50% { transform: translateY(-20px) rotateX(8deg) rotateY(8deg); }
     }
     
     .card h3 {
